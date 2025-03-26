@@ -47,6 +47,6 @@ public class TournamentService {
     }
 
     public List<Tournament> searchBetweenDates(Date startDate, Date endDate) {
-        return tournamentRepository.findByBetweenStartDates(startDate, endDate);
+        return tournamentRepository.findByStartDateBetween(startDate, endDate);
     }
 }
