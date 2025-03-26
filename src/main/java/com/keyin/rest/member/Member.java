@@ -1,7 +1,9 @@
 package com.keyin.rest.member;
 
+import com.keyin.rest.tournament.Tournament;
 import jakarta.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 public class Member {
@@ -23,6 +25,9 @@ public class Member {
     private Date startDate;
 
     private int membershipDuration;
+
+    @ManyToMany(mappedBy = "participatingMembers")
+    private List<Tournament> tournaments;
 
     // Getters and Setters
     public long getId() {

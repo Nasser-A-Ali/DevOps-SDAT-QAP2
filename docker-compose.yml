@@ -1,6 +1,7 @@
 services:
   mysql:
     image: mysql:8.0
+    platform: linux/amd64
     container_name: golf_club_database
     environment:
       MYSQL_ROOT_PASSWORD: Keyin2025
@@ -9,12 +10,17 @@ services:
       - "3307:3306"
     volumes:
       - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-pKeyin2025"]
+      interval: 5s
+      timeout: 10s
+      retries: 5
 
   app:
     image: eclipse-temurin:17-jre
     container_name: golf_club_application
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/golf_club
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/golf_club?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
     ports:
       - "8080:8080"
     volumes:
