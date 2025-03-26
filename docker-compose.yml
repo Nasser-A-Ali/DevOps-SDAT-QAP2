@@ -1,0 +1,27 @@
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: golf_club_database
+    environment:
+      MYSQL_ROOT_PASSWORD: Keyin2025
+      MYSQL_DATABASE: golf_club
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  app:
+    image: eclipse-temurin:17-jre
+    container_name: golf_club_application
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/golf_club
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./target/DevOpsSDAT_QAP2-1.0-SNAPSHOT.jar:/app.jar
+    depends_on:
+      - mysql
+    command: ["java", "-jar", "/app.jar"]
+
+volumes:
+  mysql_data:

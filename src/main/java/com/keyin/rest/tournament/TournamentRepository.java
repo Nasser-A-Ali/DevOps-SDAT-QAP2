@@ -10,5 +10,5 @@ import java.util.List;
 public interface TournamentRepository extends CrudRepository<Tournament, Long> {
     public List<Tournament> findByLocationContainingIgnoreCase(String location);
     public List<Tournament> findByStartDate(Date startDate);
-    public List<Tournament> findByBetweenStartDates(Date startDate, Date endDate);
+    public List<Tournament> findByStartDateBetween(Date startDate, Date endDate);
 }
